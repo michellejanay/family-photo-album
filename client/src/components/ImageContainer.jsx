@@ -3,7 +3,7 @@ import data from '../data/data'
 
 const ImageContainer = () => {
   return (
-    <div>
+    <div className="img-container">
       {data.map((image) => (
         <img src={require(`../images/${image}`)} width="400px" alt={image} />
       ))}

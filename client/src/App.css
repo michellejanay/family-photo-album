@@ -6,6 +6,9 @@
 
 header {
   background-color: black;
+  margin-top: 0;
+  padding: 1em 0 2em 0;
+  margin-bottom: 1em;
 }
 
 nav {
@@ -41,4 +44,5 @@ form button {
 .img-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(375px, 3fr));
+  gap: 1em;
 }

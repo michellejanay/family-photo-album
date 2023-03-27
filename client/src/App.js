@@ -1,11 +1,11 @@
 import './App.css'
-import AppNav from './components/AppNav'
+import Header from './components/Header'
 import Album from './components/Album'
 
 function App() {
   return (
     <div className="App">
-      <AppNav />
+      <Header />
       <Album />
     </div>
   )

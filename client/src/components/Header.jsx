@@ -12,7 +12,12 @@ const Header = () => {
     <header>
       <AppNav />
 
-      <form action="" className="image-upload">
+      <form
+        action="/upload"
+        method="POST"
+        className="image-upload"
+        encType="multipart/form-data"
+      >
         <Input
           label="Select an image"
           labelFor="image-upload"

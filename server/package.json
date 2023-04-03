@@ -12,7 +12,8 @@
     "multer-gridfs-storage": "^5.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "mongodb-memory-server": "^8.12.1"
   },
   "name": "server",
   "version": "1.0.0",

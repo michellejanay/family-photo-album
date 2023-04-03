@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
+import { getImages, createImage } from './controllers/imageControllers.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -18,6 +19,9 @@ app.get('/', (req, res) => {
     res.json({ error: error })
   }
 })
+
+app.get('/images', getImages)
+app.post('/uploads', createImage)
 
 // connect
 const mongodb = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.l5uwuto.mongodb.net/?retryWrites=true&w=majority`

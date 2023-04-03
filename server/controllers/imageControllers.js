@@ -1,7 +1,7 @@
-import Image from '..models/images.js'
+import Image from '../models/images.js'
 
 export const getImages = async (req, res) => {
-  console.log('get images')
+  res.send('get images')
   try {
     const image = await Image.find()
     res.status(200).json(image)

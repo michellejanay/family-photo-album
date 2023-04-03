@@ -1,6 +1,6 @@
-const Image = require('./images')
+import Image from '..models/images.js'
 
-async function getImages(req, res) {
+export const getImages = async (req, res) => {
   console.log('get images')
   try {
     const image = await Image.find()
@@ -10,16 +10,13 @@ async function getImages(req, res) {
   }
 }
 
-async function createImage(req, res) {
+export const createImage = async (req, res) => {
   const image = new Image(req.body)
 
   try {
     await image.save()
     res.status(201).json(image)
   } catch (error) {
-    res.status(500).json({ message: error.message, status: error.status })
+    res.status(500).json({ message: error.message })
   }
 }
-
-module.exports.getImages = getImages
-module.exports.createImage = createImage

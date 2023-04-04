@@ -1,11 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AppNav from './AppNav'
 import Input from './Input'
 import Button from './Button'
 
 const Header = () => {
-  const uploadImage = () => {
-    console.log(`fetch('', method: "POST")`)
+  const [image, setImage] = useState('')
+  const [title, setTitle] = useState('')
+
+  const converToFileBaseImage = (e) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(e.target.files[0])
+
+    reader.onload = () => {
+      // console.log(reader.result) //base64encoded string
+      setImage(reader.result)
+    }
+
+    reader.onerror = (error) => {
+      console.log({ error: error })
+    }
+  }
+
+  const handleTitle = (e) => {
+    setTitle(e.target.value)
+  }
+
+  const uploadImage = (e) => {
+    e.preventDefault()
+    fetch('http://localhost:5000/upload', {
+      method: 'POST',
+      crossDomain: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({
+        title: title,
+        base64: image,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
   }
 
   return (
@@ -13,11 +49,18 @@ const Header = () => {
       <AppNav />
 
       <form
-        action="/upload"
-        method="POST"
+        // onSubmit={uploadImage}
         className="image-upload"
         encType="multipart/form-data"
       >
+        <Input
+          label="Title:"
+          labelFor="image-title"
+          type="text"
+          id="image-title"
+          name="image-title"
+          onChange={handleTitle}
+        />
         <Input
           label="Select an image"
           labelFor="image-upload"
@@ -25,9 +68,11 @@ const Header = () => {
           id="image-file"
           name="image-upload"
           accept="image/*"
+          onChange={converToFileBaseImage}
         />
-        <Button onSubmit={uploadImage}>Upload</Button>
+        <Button onClick={uploadImage}>Upload</Button>
       </form>
+      {image && <img width={100} src={!image ? '' : image} alt={title} />}
     </header>
   )
 }

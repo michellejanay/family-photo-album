@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
-import { getImages, createImage } from './controllers/imageControllers.js'
+import './models/images.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -12,7 +12,9 @@ app.use(express.json({ limit: '30mb', extended: true }))
 app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors())
 
-app.get('/', (req, res) => {
+const Images = mongoose.model('imageDetails')
+
+app.get('/', async (req, res) => {
   try {
     res.json({ message: 'Hello Server!' })
   } catch (error) {
@@ -20,13 +22,20 @@ app.get('/', (req, res) => {
   }
 })
 
-app.get('/images', getImages)
-app.post('/uploads', createImage)
+app.post('/upload', async (req, res) => {
+  const { base64, title } = req.body
+  try {
+    Images.create({ image: base64, title: title })
+    res.json({ image: 'uploaded' })
+  } catch (error) {
+    res.json({ error: error })
+  }
+})
 
 // connect
-const mongodb = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.l5uwuto.mongodb.net/?retryWrites=true&w=majority`
+const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.l5uwuto.mongodb.net/?retryWrites=true&w=majority`
 
-mongoose.connect(mongodb, { dbName: 'family-photos' })
+mongoose.connect(mongoURI, { dbName: 'family-photos' })
 console.log(`MongoDB successfully connected to family-photos`)
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

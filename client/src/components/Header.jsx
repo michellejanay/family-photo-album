@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AppNav from './AppNav'
 import Input from './Input'
 import Button from './Button'
@@ -6,6 +6,7 @@ import Button from './Button'
 const Header = () => {
   const [image, setImage] = useState('')
   const [title, setTitle] = useState('')
+  const [newImages, setNewImages] = useState([])
 
   const converToFileBaseImage = (e) => {
     const reader = new FileReader()
@@ -20,6 +21,10 @@ const Header = () => {
       console.log({ error: error })
     }
   }
+
+  useEffect(() => {
+    getImage()
+  })
 
   const handleTitle = (e) => {
     setTitle(e.target.value)
@@ -44,36 +49,52 @@ const Header = () => {
       .then((data) => console.log(data))
   }
 
-  return (
-    <header>
-      <AppNav />
+  const getImage = () => {
+    fetch('http://localhost:5000/images', {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        setNewImages(data.data)
+      })
+  }
 
-      <form
-        // onSubmit={uploadImage}
-        className="image-upload"
-        encType="multipart/form-data"
-      >
-        <Input
-          label="Title:"
-          labelFor="image-title"
-          type="text"
-          id="image-title"
-          name="image-title"
-          onChange={handleTitle}
-        />
-        <Input
-          label="Select an image"
-          labelFor="image-upload"
-          type="file"
-          id="image-file"
-          name="image-upload"
-          accept="image/*"
-          onChange={converToFileBaseImage}
-        />
-        <Button onClick={uploadImage}>Upload</Button>
-      </form>
-      {image && <img width={100} src={!image ? '' : image} alt={title} />}
-    </header>
+  return (
+    <>
+      <header>
+        <AppNav />
+
+        <form
+          // onSubmit={uploadImage}
+          className="image-upload"
+          encType="multipart/form-data"
+        >
+          <Input
+            label="Title:"
+            labelFor="image-title"
+            type="text"
+            id="image-title"
+            name="image-title"
+            onChange={handleTitle}
+          />
+          <Input
+            label="Select an image"
+            labelFor="image-upload"
+            type="file"
+            id="image-file"
+            name="image-upload"
+            accept="image/*"
+            onChange={converToFileBaseImage}
+          />
+          <Button onClick={uploadImage}>Upload</Button>
+        </form>
+        {image && <img width={100} src={!image ? '' : image} alt={title} />}
+      </header>
+      {newImages.map((img) => (
+        <img width={400} src={img.image} alt={!img.title ? '' : img.title} />
+      ))}
+    </>
   )
 }
 

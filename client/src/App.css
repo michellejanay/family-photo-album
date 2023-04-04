@@ -1,32 +1,32 @@
 .App {
   text-align: center;
-  color: white;
+  /* color: white; */
   /* background-color: black; */
 }
 
 header {
-  background-color: black;
+  /* background-color: black; */
   margin-top: 0;
   padding: 1em 0 2em 0;
   margin-bottom: 1em;
 }
 
 nav {
-  background-color: black;
+  /* background-color: black; */
 }
 
 ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: black;
+  /* background-color: black; */
 }
 
 li {
   list-style-type: none;
   padding: 0 1em;
   cursor: pointer;
-  color: white;
+  /* color: white; */
 }
 form {
   display: flex;

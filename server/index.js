@@ -25,11 +25,17 @@ app.get('/', async (req, res) => {
 app.post('/upload', async (req, res) => {
   const { base64, title } = req.body
   try {
-    Images.create({ image: base64, title: title })
+    await Images.create({ image: base64, title: title })
     res.json({ image: 'uploaded' })
   } catch (error) {
     res.json({ error: error })
   }
+})
+
+app.get('/images', async (req, res) => {
+  try {
+    await Images.find({}).then((data) => res.json({ status: 'ok', data: data }))
+  } catch (error) {}
 })
 
 // connect

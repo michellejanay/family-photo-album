@@ -18,8 +18,8 @@ const AppNav = () => {
 
   return (
     <>
-      <Nav listItem={years} />
-      <Nav listItem={familyNames} />
+      <Nav listItem={years} keys={years} />
+      <Nav listItem={familyNames} keys={familyNames} />
     </>
   )
 }

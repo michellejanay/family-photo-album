@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import AppNav from './AppNav'
 import Input from './Input'
 import Button from './Button'
 
@@ -13,7 +12,6 @@ const Header = () => {
     reader.readAsDataURL(e.target.files[0])
 
     reader.onload = () => {
-      // console.log(reader.result) //base64encoded string
       setImage(reader.result)
     }
 
@@ -58,7 +56,7 @@ const Header = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data)
+        console.log(data)
         setNewImages(data.data)
       })
   }
@@ -78,6 +76,7 @@ const Header = () => {
             id="image-title"
             name="image-title"
             onChange={handleTitle}
+            required
           />
           <Input
             label="Select an image"
@@ -87,16 +86,22 @@ const Header = () => {
             name="image-upload"
             accept="image/*"
             onChange={converToFileBaseImage}
+            required
           />
           <Button onClick={uploadImage}>Upload</Button>
         </form>
         {image && <img width={100} src={!image ? '' : image} alt={title} />}
       </header>
-      <main className="img-container header-img-cont">
-        {newImages.map((img) => (
-          <img width={400} src={img.image} alt={!img.title ? '' : img.title} />
+      <div className="img-container header-img-cont">
+        {newImages.map((img, i) => (
+          <img
+            width={400}
+            src={img.image}
+            alt={!img.title ? '' : img.title}
+            key={i}
+          />
         ))}
-      </main>
+      </div>
     </>
   )
 }

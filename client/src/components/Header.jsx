@@ -47,6 +47,9 @@ const Header = () => {
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
+
+    setTitle('')
+    setImage('')
   }
 
   const getImage = () => {
@@ -55,7 +58,7 @@ const Header = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         setNewImages(data.data)
       })
   }
@@ -63,8 +66,6 @@ const Header = () => {
   return (
     <>
       <header>
-        <AppNav />
-
         <form
           // onSubmit={uploadImage}
           className="image-upload"
@@ -91,9 +92,11 @@ const Header = () => {
         </form>
         {image && <img width={100} src={!image ? '' : image} alt={title} />}
       </header>
-      {newImages.map((img) => (
-        <img width={400} src={img.image} alt={!img.title ? '' : img.title} />
-      ))}
+      <main className="img-container header-img-cont">
+        {newImages.map((img) => (
+          <img width={400} src={img.image} alt={!img.title ? '' : img.title} />
+        ))}
+      </main>
     </>
   )
 }

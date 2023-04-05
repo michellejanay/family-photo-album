@@ -29,15 +29,8 @@ li {
   /* color: white; */
 }
 form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 50%;
-  margin: auto;
 }
 form button {
-  width: 40%;
-  margin: auto;
 }
 
 /* Images  */
@@ -45,4 +38,8 @@ form button {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(375px, 3fr));
   gap: 1em;
+}
+
+.header-img-cont {
+  margin-bottom: 1em;
 }

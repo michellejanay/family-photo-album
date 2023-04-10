@@ -5,7 +5,7 @@ import Button from './Button'
 const Header = () => {
   const [image, setImage] = useState('')
   const [title, setTitle] = useState('')
-  const [newImages, setNewImages] = useState([])
+  // const [newImages, setNewImages] = useState([])
 
   const converToFileBaseImage = (e) => {
     const reader = new FileReader()
@@ -19,10 +19,6 @@ const Header = () => {
       console.log({ error: error })
     }
   }
-
-  useEffect(() => {
-    getImage()
-  })
 
   const handleTitle = (e) => {
     setTitle(e.target.value)
@@ -50,16 +46,16 @@ const Header = () => {
     setImage('')
   }
 
-  const getImage = () => {
-    fetch('http://localhost:5000/images', {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        setNewImages(data.data)
-      })
-  }
+  // const getImage = () => {
+  //   fetch('http://localhost:5000/images', {
+  //     method: 'GET',
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data)
+  //       setNewImages(data.data)
+  //     })
+  // }
 
   return (
     <>
@@ -93,14 +89,14 @@ const Header = () => {
         {image && <img width={100} src={!image ? '' : image} alt={title} />}
       </header>
       <div className="img-container header-img-cont">
-        {newImages.map((img, i) => (
+        {/* {newImages.map((img, i) => (
           <img
             width={400}
             src={img.image}
             alt={!img.title ? '' : img.title}
             key={i}
           />
-        ))}
+        ))} */}
       </div>
     </>
   )
